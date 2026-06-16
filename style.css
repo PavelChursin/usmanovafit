@@ -1,0 +1,466 @@
+/* ============================================================
+   Катя Усманова / GymTeam — реконструкция лендинга
+   Mobile-first. Шрифт Manrope (аналог кастомного Gilroy).
+   ============================================================ */
+
+:root{
+  --bg:        #ffffff;
+  --bg-soft:   #f4f2ef;   /* тёплый светлый фон секций */
+  --ink:       #15110e;   /* основной текст */
+  --muted:     #6b6560;   /* приглушённый текст */
+  --accent:    #ff4338;   /* фирменный коралл (CTA, теги) */
+  --accent-dk: #e22f25;   /* hover для акцента */
+  --accent-sf: #ffe9e6;   /* мягкий тинт */
+  --card:      #ffffff;
+  --line:      #ece8e3;
+  --radius:    24px;
+  --radius-sm: 16px;
+  --shadow:    0 10px 30px rgba(20,17,14,.07);
+  --shadow-h:  0 18px 44px rgba(20,17,14,.13);
+  --container: 1200px;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+
+body{
+  margin:0;
+  font-family:"Manrope", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+
+img{ display:block; max-width:100%; height:auto; }
+a{ color:inherit; text-decoration:none; }
+
+.container{
+  width:100%;
+  max-width:var(--container);
+  margin:0 auto;
+  padding:0 20px;
+}
+.container--narrow{ max-width:820px; }
+
+/* ---------- Кнопка ---------- */
+.btn{
+  display:inline-block;
+  font-weight:800;
+  font-size:17px;
+  line-height:1;
+  padding:19px 42px;
+  border-radius:100px;
+  border:none;
+  cursor:pointer;
+  text-align:center;
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn--accent{
+  background:var(--accent);
+  color:#fff;
+  box-shadow:0 10px 24px rgba(255,67,56,.32);
+}
+.btn--accent:hover{
+  background:var(--accent-dk);
+  transform:translateY(-3px);
+  box-shadow:0 16px 32px rgba(255,67,56,.40);
+}
+.btn--accent:active{ transform:translateY(-1px); }
+
+/* ---------- Секции / заголовки ---------- */
+.section{ padding:56px 0; }
+
+.section__title{
+  font-size:26px;
+  line-height:1.18;
+  font-weight:800;
+  letter-spacing:-.01em;
+  margin:0 0 16px;
+}
+.section__lead{
+  font-size:16px;
+  color:var(--muted);
+  max-width:760px;
+  margin:0 0 28px;
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  min-height:92vh;
+  display:flex;
+  align-items:flex-end;
+  overflow:hidden;
+  background:#1a1714;
+}
+.hero__bg{
+  position:absolute; inset:0;
+  /* заменить на свой ассет: фото Кати в hero */
+  background:
+    radial-gradient(120% 80% at 70% 0%, rgba(255,67,56,.30), transparent 60%),
+    linear-gradient(180deg, #2a2320 0%, #14110e 100%);
+}
+.hero__bg::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(20,17,14,0) 30%, rgba(20,17,14,.85) 100%);
+}
+.hero__inner{
+  position:relative;
+  z-index:1;
+  padding-top:120px;
+  padding-bottom:56px;
+  color:#fff;
+}
+.hero__title{
+  font-size:30px;
+  line-height:1.14;
+  font-weight:800;
+  letter-spacing:-.01em;
+  margin:0 0 16px;
+}
+.hero__lead{
+  font-size:18px;
+  font-weight:700;
+  color:var(--accent);
+  margin:0 0 16px;
+}
+.hero__text{
+  font-size:16px;
+  color:rgba(255,255,255,.86);
+  max-width:560px;
+  margin:0 0 28px;
+}
+.hero__note{
+  font-size:13px;
+  color:rgba(255,255,255,.6);
+  margin:16px 0 0;
+}
+
+/* ---------- О чемпионке ---------- */
+.about{ background:var(--bg-soft); }
+
+.checklist{ list-style:none; margin:0 0 32px; padding:0; }
+.checklist__item{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+  font-weight:600;
+  font-size:16px;
+}
+.checklist__item:last-child{ border-bottom:none; }
+.checklist__icon{
+  width:26px; height:26px;
+  flex:0 0 26px;
+  object-fit:contain;
+  margin-top:1px;
+}
+
+/* ---------- Слайдеры (горизонтальная прокрутка) ---------- */
+.slider{
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x proximity;
+  cursor:grab;
+  padding-bottom:6px;
+  scrollbar-width:none;
+}
+.slider::-webkit-scrollbar{ display:none; }
+.slider.is-drag{ cursor:grabbing; }
+.slider__track{
+  display:flex;
+  gap:14px;
+  width:max-content;
+}
+.slider__card{ scroll-snap-align:start; }
+.slider__card--media{
+  width:220px;
+  height:300px;
+  object-fit:cover;
+  border-radius:var(--radius-sm);
+  background:#e9e5e0;
+  flex:0 0 auto;
+  pointer-events:none;
+}
+.slider__photo{
+  width:200px;
+  height:280px;
+  object-fit:cover;
+  border-radius:var(--radius-sm);
+  background:#e9e5e0;
+  flex:0 0 auto;
+  scroll-snap-align:start;
+  pointer-events:none;
+}
+.slider__photo--ph{
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-weight:700; font-size:13px; text-align:center;
+  background:linear-gradient(135deg, #ffb3ac, #ff6f63);
+}
+.slider__hint{
+  font-size:14px;
+  color:var(--muted);
+  margin:12px 0 0;
+  font-weight:600;
+}
+
+/* ---------- Доверие ---------- */
+.trust{ text-align:center; }
+.trust__inner{ display:flex; flex-direction:column; align-items:center; }
+.trust .section__lead{ margin-bottom:24px; }
+
+/* ---------- Программы ---------- */
+.group__title{
+  font-size:24px;
+  font-weight:800;
+  margin:40px 0 20px;
+  letter-spacing:-.01em;
+}
+.group__title:first-child{ margin-top:0; }
+
+.cards{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+}
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  display:flex;
+  flex-direction:column;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-h); }
+.card__media{ aspect-ratio:1/1; background:#f0ece7; overflow:hidden; }
+.card__media img{ width:100%; height:100%; object-fit:cover; transition:transform .4s ease; }
+.card:hover .card__media img{ transform:scale(1.04); }
+.card__body{ padding:20px 20px 24px; display:flex; flex-direction:column; flex:1; }
+
+.tag{
+  display:inline-block;
+  align-self:flex-start;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  color:var(--muted);
+  background:var(--bg-soft);
+  border-radius:100px;
+  padding:6px 12px;
+  margin-bottom:12px;
+}
+.tag--flagman,.tag--best{ color:#fff; background:var(--accent); }
+
+.card__title{ font-size:20px; font-weight:800; margin:0 0 10px; }
+.card__text{ font-size:15px; color:var(--muted); margin:0 0 18px; }
+.card__text b{ color:var(--ink); font-weight:700; }
+.card__link{
+  margin-top:auto;
+  align-self:flex-start;
+  font-weight:800;
+  color:var(--accent);
+  border-bottom:2px solid transparent;
+  transition:border-color .2s ease;
+}
+.card__link:hover{ border-color:var(--accent); }
+
+/* ---------- Статистика ---------- */
+.stats{ background:var(--bg-soft); }
+.stats__list{ list-style:none; margin:0 0 28px; padding:0; }
+.counter{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:22px 26px;
+  box-shadow:var(--shadow);
+  margin:0 0 32px;
+  max-width:420px;
+}
+.counter__label{ font-size:14px; color:var(--muted); font-weight:600; }
+.counter__value{ font-size:38px; font-weight:800; color:var(--accent); line-height:1; }
+
+/* ---------- Помощь ---------- */
+.help{ background:var(--ink); color:#fff; text-align:center; }
+.help__inner{ display:flex; flex-direction:column; align-items:center; }
+.help__title{
+  font-size:24px; font-weight:800; letter-spacing:.02em;
+  text-transform:uppercase; margin:0 0 14px;
+}
+.help__text{ color:rgba(255,255,255,.82); max-width:560px; margin:0 0 26px; }
+.help__links{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+.help__link{
+  font-weight:700;
+  padding:13px 24px;
+  border-radius:100px;
+  border:1.5px solid rgba(255,255,255,.28);
+  transition:background .2s ease, border-color .2s ease, color .2s ease;
+}
+.help__link:hover{ background:var(--accent); border-color:var(--accent); color:#fff; }
+
+/* ---------- Гарантии ---------- */
+.gcards{ display:grid; grid-template-columns:1fr; gap:16px; }
+.gcard{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:26px 24px;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.gcard:hover{ transform:translateY(-4px); box-shadow:var(--shadow); }
+.gcard__icon{ width:52px; height:52px; object-fit:contain; margin-bottom:16px; }
+.gcard__title{ font-size:18px; font-weight:800; margin:0 0 10px; }
+.gcard__text{ font-size:15px; color:var(--muted); margin:0; }
+
+/* ---------- FAQ ---------- */
+.accordion{ display:flex; flex-direction:column; gap:12px; }
+.acc{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  overflow:hidden;
+}
+.acc__head{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  text-align:left;
+  background:none;
+  border:none;
+  cursor:pointer;
+  font-family:inherit;
+  font-size:16px;
+  font-weight:700;
+  color:var(--ink);
+  padding:20px 22px;
+}
+.acc__sign{
+  flex:0 0 auto;
+  font-size:24px;
+  font-weight:700;
+  color:var(--accent);
+  transition:transform .25s ease;
+  line-height:1;
+}
+.acc.is-open .acc__sign{ transform:rotate(45deg); }
+.acc__body{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .3s ease;
+}
+.acc__body p{ margin:0; padding:0 22px 22px; color:var(--muted); font-size:15px; }
+.acc__body a{ color:var(--accent); font-weight:700; }
+
+/* ---------- Footer ---------- */
+.footer{ background:var(--bg-soft); padding:44px 0; }
+.footer__copy{ font-size:15px; margin:0 0 10px; }
+.footer__req{ font-size:14px; color:var(--muted); margin:0 0 22px; }
+.footer__nav{ display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
+.footer__nav a{ font-size:14px; color:var(--muted); width:max-content; border-bottom:1px solid transparent; }
+.footer__nav a:hover{ color:var(--ink); border-color:var(--ink); }
+.footer__social{ display:flex; gap:14px; }
+.footer__social a{
+  width:42px; height:42px;
+  display:flex; align-items:center; justify-content:center;
+  background:#fff; border-radius:50%;
+  box-shadow:var(--shadow);
+  transition:transform .2s ease;
+}
+.footer__social a:hover{ transform:translateY(-3px); }
+.footer__social img{ width:22px; height:22px; }
+
+/* ---------- Cookie ---------- */
+.cookie{
+  position:fixed;
+  left:16px; right:16px; bottom:16px;
+  z-index:50;
+  background:var(--ink);
+  color:#fff;
+  border-radius:var(--radius-sm);
+  padding:16px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  box-shadow:0 14px 40px rgba(0,0,0,.3);
+  transform:translateY(160%);
+  transition:transform .4s ease;
+}
+.cookie.is-show{ transform:translateY(0); }
+.cookie p{ margin:0; font-size:13px; color:rgba(255,255,255,.85); }
+.cookie__btn{
+  align-self:flex-start;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  border-radius:100px;
+  padding:10px 28px;
+  font-family:inherit;
+  font-weight:800;
+  cursor:pointer;
+  transition:background .2s ease;
+}
+.cookie__btn:hover{ background:var(--accent-dk); }
+
+/* ---------- Reveal-анимация при скролле ---------- */
+.reveal{
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity .6s ease, transform .6s ease;
+}
+.reveal.is-visible{ opacity:1; transform:none; }
+
+@media (prefers-reduced-motion:reduce){
+  .reveal{ opacity:1; transform:none; transition:none; }
+  html{ scroll-behavior:auto; }
+}
+
+/* ============================================================
+   ПЛАНШЕТ
+   ============================================================ */
+@media (min-width:768px){
+  body{ font-size:17px; }
+  .section{ padding:80px 0; }
+  .section__title{ font-size:36px; }
+  .group__title{ font-size:30px; }
+
+  .hero__title{ font-size:46px; }
+  .hero__lead{ font-size:22px; }
+  .hero__text{ font-size:18px; }
+
+  .cards{ grid-template-columns:repeat(2,1fr); gap:22px; }
+  .gcards{ grid-template-columns:repeat(2,1fr); gap:20px; }
+
+  .slider__card--media{ width:260px; height:350px; }
+  .slider__photo{ width:230px; height:320px; }
+
+  .footer__nav{ flex-flow:row wrap; gap:8px 28px; }
+
+  .cookie{
+    left:auto; right:24px; bottom:24px;
+    max-width:420px;
+    flex-direction:row;
+    align-items:center;
+  }
+  .cookie__btn{ align-self:auto; flex:0 0 auto; }
+}
+
+/* ============================================================
+   ДЕСКТОП
+   ============================================================ */
+@media (min-width:1024px){
+  .section__title{ font-size:42px; }
+  .hero__title{ font-size:56px; }
+
+  .cards{ grid-template-columns:repeat(3,1fr); }
+  .gcards{ grid-template-columns:repeat(3,1fr); }
+}
